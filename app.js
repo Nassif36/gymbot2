@@ -8,7 +8,7 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
 
 const opcion43Masc = addKeyword('1')
   .addAnswer(['Tren superior: https://drive.google.com/file/d/1qojm2nLtbJPtshR2exkGsQddXnwwJoU-/view?usp=drive_link'])
-  
+
 const opcion42Masc = addKeyword('2')
   .addAnswer(['Tren inferior: https://drive.google.com/file/d/1ttUWSKcgvgLUF4JRZfnOjuf_ZKQqTkdP/view?usp=drive_link'])
 
@@ -19,8 +19,8 @@ const opcion4Masc = addKeyword('4')
   .addAnswer(['💪🏽 Okey, no problem ❗ Si tenés poco tiempo tenemos la solucion para vos, tenemos las mejores rutinas y combinaciones para que puedas explotar en pocos minutos 💪🏽❗ Qué vas a entrenar hoy? ',
   '1️⃣ Tren superior 💪🏽',
   '2️⃣ Tren inferior 🍑 🦵🏼',
-  '3️⃣ Quiero algo para quemar grasa 🏃🏽' 
-  ], 
+  '3️⃣ Quiero algo para quemar grasa 🏃🏽'
+  ],
   null,
   null,
   [opcion41Masc, opcion42Masc, opcion43Masc]
@@ -28,7 +28,7 @@ const opcion4Masc = addKeyword('4')
 
 const opcion43Fem = addKeyword('1')
   .addAnswer(['Tren superior: https://drive.google.com/file/d/14dZNw4TkiJ75hMtWPfSVOQtZzyLejSYZ/view?usp=drive_link'])
-  
+
 const opcion42Fem = addKeyword('2')
   .addAnswer(['Tren inferior: https://drive.google.com/file/d/154JGd5K3E1qLZ4JlYkcIOHBXmmd8lZJ_/view?usp=drive_link'])
 
@@ -42,7 +42,7 @@ const opcion4Fem = addKeyword('4')
   '3️⃣ Quiero algo para quemar grasa 🏃🏽'
   ],
   null,
-  null, 
+  null,
   [opcion41Fem, opcion42Fem, opcion43Fem]
   )
 
@@ -154,7 +154,7 @@ const opcion1Fem = addKeyword('1')
 const trainingFem = addKeyword('1')
   .addAnswer('💪🏽 Contame un poco de vos, en qué nivel de acondicionamiento físico crees que estás? 🏋🏽')
   .addAnswer([
-  '1️⃣ Soy iniciante, me gustaría una rutina para aprender y adaptar mi cuerpo 🏋🏽', 
+  '1️⃣ Soy iniciante, me gustaría una rutina para aprender y adaptar mi cuerpo 🏋🏽',
   '2️⃣ Ya vengo entrenando hace rato, me gustaría una rutina para seguir creciendo 💪🏽 🔝',
   '3️⃣ Hoy quiero entrenar un grupo muscular específico  💪🏽 🍑 🦵🏼',
   '4️⃣ Hoy tengo poco tiempo, qué me sugerís Tina? 🤔'
@@ -167,7 +167,7 @@ const trainingFem = addKeyword('1')
 const trainingMasc = addKeyword('2')
   .addAnswer('💪🏽 Buenísimo ❗ contame un poco de vos, en qué nivel de acondicionamiento físico crees que estás? 🏋🏽')
   .addAnswer([
-  '1️⃣ Soy iniciante, me gustaría una rutina para aprender y adaptar mi cuerpo 🏋🏽', 
+  '1️⃣ Soy iniciante, me gustaría una rutina para aprender y adaptar mi cuerpo 🏋🏽',
   '2️⃣ Ya vengo entrenando hace rato, me gustaría una rutina para seguir creciendo 💪🏽 🔝' ,
   '3️⃣ Hoy quiero entrenar un grupo muscular específico  💪🏽 🍑 🦵🏼' ,
   '4️⃣ Hoy tengo poco tiempo, qué me sugerís Tina? 🤔'
@@ -177,20 +177,8 @@ const trainingMasc = addKeyword('2')
   [opcion1Masc, opcion2Masc, opcion3Masc, opcion4Masc]
   )
 
-const apagarBot = addKeyword('4')
-.addAnswer('Aguarde un momento')
-.addAction(
-  async (ctx, { state, endFlow }) => {
-    state.update({ off: true });
- 
-    setTimeout(() => {
-      state.update({ off: false });
-      return endFlow()
-    }, 600000);
-  }
-)
 
-const flowOpcion3 = addKeyword('3')
+const flowOpcion3 = addKeyword('1')
 .addAnswer([
   '💪🏽 Buenísimo! Recordá que todas las rutinas incluyen videos y tenés el apoyo de los profesores de turno para ayudarte en cualquier duda! ',
   '*Qué sexo sos?*',
@@ -203,14 +191,13 @@ const flowOpcion3 = addKeyword('3')
 );
 
 
-const flowOpcion2 = addKeyword(['2'])
-.addAnswer('🕛 *Horarios*', {
-  media: 'https://firebasestorage.googleapis.com/v0/b/mecacdn-8b7d3.appspot.com/o/meca-horarios.PNG?alt=media&token=cfecd238-c689-412b-818e-fec2cc2ecd82'
-})
-
-const flowOpcion1 = addKeyword(['1'])
-.addAnswer(['✅ *Servicios*','☕ *Mecca`s Coffe* ','🛒 *Mecca Fitness Shop*'])
-.addAnswer('👨🏽‍💻 💳 *Medios de pago*', {media: 'https://firebasestorage.googleapis.com/v0/b/mecacdn-8b7d3.appspot.com/o/meca-precios.PNG?alt=media&token=3e7901f7-e915-4e8b-a88f-b4506da93485'})
+const apagarBot = addKeyword('4')
+.addAction(
+  async (ctx, { state, endFlow }) => {
+    state.update({ off: true });
+      return endFlow('Aguarde un momento')
+  }
+)
 
   const flowPrincipal = addKeyword(EVENTS.WELCOME)
   .addAction(async (ctx, { state, endFlow }) => {
@@ -220,14 +207,12 @@ const flowOpcion1 = addKeyword(['1'])
   })
   .addAnswer([' Buenas ❗ En qué puedo ayudarte?'] )
   .addAnswer([
-  '1️⃣ Necesito info de los *aranceles*, *servicios* y *medios de pago* 👨🏽‍💻 💳', 
-  '2️⃣ Horario de las *clases* 🕜 🏋🏽', 
-  '3️⃣ Ya me inscribí, Quiero mi *rutina* 💪🏽',
-  '4️⃣ Hablar con un ser humano'
+  '1️⃣ Ya me inscribí, Quiero mi *rutina* 💪🏽'
+
   ],
   null,
   null,
-  [flowOpcion1, flowOpcion2, flowOpcion3, apagarBot]
+  [flowOpcion3, apagarBot]
  );
 
 
